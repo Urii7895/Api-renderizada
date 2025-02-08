@@ -1,42 +1,179 @@
-<!DOCTYPE html> 
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-	<title>Page Title</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro de Computadoras</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
-
 <body>
-	<div class="ui-field-contain">
-        <form action="/ownbase/coleccion/insert" method="POST">
-            <label for="name">Nombre:</label>
-            <input type="text" name="name" id="name" placeholder="ingrese su nombre" value="">
-            
-           <label for="description">description :</label>
-            <input type="text" name="description" id="description" placeholder="descrpcion" value="">
-
-         <label for="description">description :</label>
-            <input type="text" name="description" id="description" placeholder="descrpcion" value="">
-
-         <label for="cost">cost :</label>
-            <input type="text" name="cost" id="cost" placeholder="cost" value="">
-
-         <label for="marca">marca :</label>
-            <input type="text" name="marca" id="marca" placeholder="marca" value="">
-
-         <label for="stock">stock :</label>
-            <input type="text" name="stock" id="stock" placeholder="stock" value="">
-
-
-         <label for="precio">precio :</label>
-            <input type="text" name="precio" id="precio" placeholder="precio" value="">
-
-       
-        <button class="ui-btn ui-mini">guardar registro</button>
-
+    
+    <div data-role="page" id="registroComputadoras">
+        <!-- Encabezado -->
+        <div data-role="header">
+            <h1>Registro de Computadoras</h1>
         </div>
+    
+        <!-- Contenido -->
+        <div data-role="content">
+            <form action="/ownbase/coleccion/insert" method="POST">
+                <div class="ui-field-contain">
+                    <label for="name">Nombre:</label>
+                    <input type="text" name="name" id="name" placeholder="Ingrese el nombre de la computadora" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="description">Descripción:</label>
+                    <input type="text" name="description" id="description" placeholder="Descripción" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="cost">Costo:</label>
+                    <input type="number" name="cost" id="cost" placeholder="Costo" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="marca">Marca:</label>
+                    <input type="text" name="marca" id="marca" placeholder="Marca" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="stock">Stock:</label>
+                    <input type="number" name="stock" id="stock" placeholder="Stock" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="precio">Precio de venta:</label>
+                    <input type="number" name="precio" id="precio" placeholder="Precio" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <!-- Botón de Guardar -->
+                <button type="submit" class="ui-btn ui-btn-b ui-shadow ui-corner-all ui-btn-block">Guardar Registro</button>
+            </form>
+        </div>
+
+        <!-- Lista desplegable de categorías (Collapsibles) -->
+        <div id="demo-borders">
+            <!-- Collapsible Por Marca -->
+            <div data-role="collapsible" data-inset="false">
+                <h3>Por Marca</h3>
+                <ul data-role="listview">
+                    <% if (coleccion && coleccion.length > 0) { %>
+                        <% coleccion.forEach(function(computadora) { %>
+                            <li>
+                                <h3>Nombre: <%= computadora.name %></h3>
+                                <p>Descripción: <%= computadora.description %></p>
+                                <p>Costo: $<%= computadora.cost %></p>
+                                <p>Marca: <%= computadora.marca %></p>
+                                <p>Stock: <%= computadora.stock %></p>
+                                <p>Precio: $<%= computadora.precio %></p>
+                                <a href="/ownbase/coleccion/getOne/<%= computadora._id.toString().trim() %>" class="ui-btn ui-btn-inline">Editar</a>
+                                
+                                <!-- Formulario de eliminación -->
+                                <form action="/ownbase/coleccion/deleteOne/<%= computadora._id.toString().trim() %>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
+                                </form>
+                            </li>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No hay computadoras registradas.</p>
+                    <% } %>
+                </ul>
+            </div><!-- /collapsible -->
+
+            <!-- Collapsible Por Precio -->
+            <div data-role="collapsible" data-inset="false">
+                <h3>Por Precio</h3>
+                <ul data-role="listview">
+                    <% if (coleccion && coleccion.length > 0) { %>
+                        <% coleccion.forEach(function(computadora) { %>
+                            <li>
+                                <h3>Nombre: <%= computadora.name %></h3>
+                                <p>Descripción: <%= computadora.description %></p>
+                                <p>Costo: $<%= computadora.cost %></p>
+                                <p>Marca: <%= computadora.marca %></p>
+                                <p>Stock: <%= computadora.stock %></p>
+                                <p>Precio: $<%= computadora.precio %></p>
+                                <a href="/ownbase/coleccion/getOne/<%= computadora._id.toString().trim() %>" class="ui-btn ui-btn-inline">Editar</a>
+                                
+                                <!-- Formulario de eliminación -->
+                                <form action="/ownbase/coleccion/deleteOne/<%= computadora._id.toString().trim() %>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
+                                </form>
+                            </li>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No hay computadoras registradas.</p>
+                    <% } %>
+                </ul>
+            </div><!-- /collapsible -->
+
+            <!-- Collapsible Por Utilidad -->
+            <div data-role="collapsible" data-inset="false">
+                <h3>Por Utilidad</h3>
+                <ul data-role="listview">
+                    <% if (coleccion && coleccion.length > 0) { %>
+                        <% coleccion.forEach(function(computadora) { %>
+                            <li>
+                                <h3>Nombre: <%= computadora.name %></h3>
+                                <p>Descripción: <%= computadora.description %></p>
+                                <p>Costo: $<%= computadora.cost %></p>
+                                <p>Marca: <%= computadora.marca %></p>
+                                <p>Stock: <%= computadora.stock %></p>
+                                <p>Precio: $<%= computadora.precio %></p>
+                                <a href="/ownbase/coleccion/getOne/<%= computadora._id.toString().trim() %>" class="ui-btn ui-btn-inline">Editar</a>
+                                
+                                <!-- Formulario de eliminación -->
+                                <form action="/ownbase/coleccion/deleteOne/<%= computadora._id.toString().trim() %>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
+                                </form>
+                            </li>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No hay computadoras registradas.</p>
+                    <% } %>
+                </ul>
+            </div><!-- /collapsible -->
+
+            <!-- Collapsible Por Stock -->
+            <div data-role="collapsible" data-inset="false">
+                <h3>Por Stock</h3>
+                <ul data-role="listview">
+                    <% if (coleccion && coleccion.length > 0) { %>
+                        <% coleccion.forEach(function(computadora) { %>
+                            <li>
+                                <h3>Nombre: <%= computadora.name %></h3>
+                                <p>Descripción: <%= computadora.description %></p>
+                                <p>Costo: $<%= computadora.cost %></p>
+                                <p>Marca: <%= computadora.marca %></p>
+                                <p>Stock: <%= computadora.stock %></p>
+                                <p>Precio: $<%= computadora.precio %></p>
+                                <a href="/ownbase/coleccion/getOne/<%= computadora._id.toString().trim() %>" class="ui-btn ui-btn-inline">Editar</a>
+                                
+                                <!-- Formulario de eliminación -->
+                                <form action="/ownbase/coleccion/deleteOne/<%= computadora._id.toString().trim() %>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
+                                </form>
+                            </li>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No hay computadoras registradas.</p>
+                    <% } %>
+                </ul>
+            </div><!-- /collapsible -->
+        </div><!-- /demo-borders -->
+
+        <!-- Pie de Página -->
+        <div data-role="footer">
+            <h4>Derechos Reservados por Uri On The Beatz A.K.A BadBeat</h4>
+        </div><!-- /footer -->
+
+    </div><!-- /page -->
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar Computadora</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+    <div data-role="page" id="editarComputadora">
+        <!-- Encabezado -->
+        <div data-role="header">
+            <h1>Editar Computadora</h1>
+        </div>
+
+        <!-- Contenido -->
+        <div data-role="content">
+            <form action="/ownbase/coleccion/updateOne/<%= coleccion._id %>" method="POST">
+                <div class="ui-field-contain">
+                    <label for="name">Nombre:</label>
+                    <input type="text" name="name" id="name" value="<%= coleccion.name %>" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="description">Descripción:</label>
+                    <input type="text" name="description" id="description" value="<%= coleccion.description %>" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="cost">Costo:</label>
+                    <input type="number" name="cost" id="cost" value="<%= coleccion.cost %>" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="marca">Marca:</label>
+                    <input type="text" name="marca" id="marca" value="<%= coleccion.marca %>" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="stock">Stock:</label>
+                    <input type="number" name="stock" id="stock" value="<%= coleccion.stock %>" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="precio">Precio de venta:</label>
+                    <input type="number" name="precio" id="precio" value="<%= coleccion.precio %>" class="ui-input-text ui-body-c ui-btn-block">
+                </div>
+
+                <button type="submit" class="ui-btn ui-btn-b ui-shadow ui-corner-all ui-btn-block">Actualizar</button>
+            </form>
+        </div>
+
+    </div><!-- /page -->
+
+</body>
+</html>
