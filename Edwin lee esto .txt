@@ -1,0 +1,5 @@
+http://localhost:3004/ownbase/coleccion/getAll
+esta es la ruta donde se visualiza la interfaz de de la aplicacion okay 
+
+la pones en el documento vale 
+y el proyecto corre con npm run dev 

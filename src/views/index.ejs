@@ -21,159 +21,119 @@
             <form action="/ownbase/coleccion/insert" method="POST">
                 <div class="ui-field-contain">
                     <label for="name">Nombre:</label>
-                    <input type="text" name="name" id="name" placeholder="Ingrese el nombre de la computadora" class="ui-input-text ui-body-c ui-btn-block">
+                    <input type="text" name="name" id="name" placeholder="Ingrese el nombre de la computadora">
                 </div>
 
                 <div class="ui-field-contain">
                     <label for="description">Descripción:</label>
-                    <input type="text" name="description" id="description" placeholder="Descripción" class="ui-input-text ui-body-c ui-btn-block">
+                    <input type="text" name="description" id="description" placeholder="Descripción">
                 </div>
 
                 <div class="ui-field-contain">
                     <label for="cost">Costo:</label>
-                    <input type="number" name="cost" id="cost" placeholder="Costo" class="ui-input-text ui-body-c ui-btn-block">
+                    <input type="number" name="cost" id="cost" placeholder="Costo">
                 </div>
 
                 <div class="ui-field-contain">
                     <label for="marca">Marca:</label>
-                    <input type="text" name="marca" id="marca" placeholder="Marca" class="ui-input-text ui-body-c ui-btn-block">
+                    <input type="text" name="marca" id="marca" placeholder="Marca">
                 </div>
 
                 <div class="ui-field-contain">
                     <label for="stock">Stock:</label>
-                    <input type="number" name="stock" id="stock" placeholder="Stock" class="ui-input-text ui-body-c ui-btn-block">
+                    <input type="number" name="stock" id="stock" placeholder="Stock">
                 </div>
 
                 <div class="ui-field-contain">
                     <label for="precio">Precio de venta:</label>
-                    <input type="number" name="precio" id="precio" placeholder="Precio" class="ui-input-text ui-body-c ui-btn-block">
+                    <input type="number" name="precio" id="precio" placeholder="Precio">
                 </div>
 
-                <!-- Botón de Guardar -->
                 <button type="submit" class="ui-btn ui-btn-b ui-shadow ui-corner-all ui-btn-block">Guardar Registro</button>
             </form>
         </div>
 
         <!-- Lista desplegable de categorías (Collapsibles) -->
         <div id="demo-borders">
+            
             <!-- Collapsible Por Marca -->
             <div data-role="collapsible" data-inset="false">
                 <h3>Por Marca</h3>
                 <ul data-role="listview">
                     <% if (coleccion && coleccion.length > 0) { %>
+                        <% coleccion.sort((a, b) => a.marca.localeCompare(b.marca)); %>
                         <% coleccion.forEach(function(computadora) { %>
                             <li>
                                 <h3>Nombre: <%= computadora.name %></h3>
-                                <p>Descripción: <%= computadora.description %></p>
-                                <p>Costo: $<%= computadora.cost %></p>
                                 <p>Marca: <%= computadora.marca %></p>
-                                <p>Stock: <%= computadora.stock %></p>
-                                <p>Precio: $<%= computadora.precio %></p>
-                                <a href="/ownbase/coleccion/getOne/<%= computadora._id.toString().trim() %>" class="ui-btn ui-btn-inline">Editar</a>
-                                
-                                <!-- Formulario de eliminación -->
-                                <form action="/ownbase/coleccion/deleteOne/<%= computadora._id.toString().trim() %>" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
-                                </form>
                             </li>
                         <% }); %>
                     <% } else { %>
                         <p>No hay computadoras registradas.</p>
                     <% } %>
                 </ul>
-            </div><!-- /collapsible -->
+            </div>
 
             <!-- Collapsible Por Precio -->
             <div data-role="collapsible" data-inset="false">
                 <h3>Por Precio</h3>
                 <ul data-role="listview">
                     <% if (coleccion && coleccion.length > 0) { %>
+                        <% coleccion.sort((a, b) => a.precio - b.precio); %>
                         <% coleccion.forEach(function(computadora) { %>
                             <li>
                                 <h3>Nombre: <%= computadora.name %></h3>
-                                <p>Descripción: <%= computadora.description %></p>
-                                <p>Costo: $<%= computadora.cost %></p>
-                                <p>Marca: <%= computadora.marca %></p>
-                                <p>Stock: <%= computadora.stock %></p>
                                 <p>Precio: $<%= computadora.precio %></p>
-                                <a href="/ownbase/coleccion/getOne/<%= computadora._id.toString().trim() %>" class="ui-btn ui-btn-inline">Editar</a>
-                                
-                                <!-- Formulario de eliminación -->
-                                <form action="/ownbase/coleccion/deleteOne/<%= computadora._id.toString().trim() %>" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
-                                </form>
                             </li>
                         <% }); %>
                     <% } else { %>
                         <p>No hay computadoras registradas.</p>
                     <% } %>
                 </ul>
-            </div><!-- /collapsible -->
+            </div>
 
             <!-- Collapsible Por Utilidad -->
             <div data-role="collapsible" data-inset="false">
                 <h3>Por Utilidad</h3>
                 <ul data-role="listview">
                     <% if (coleccion && coleccion.length > 0) { %>
+                        <% coleccion.sort((a, b) => (b.precio - b.cost) - (a.precio - a.cost)); %>
                         <% coleccion.forEach(function(computadora) { %>
                             <li>
                                 <h3>Nombre: <%= computadora.name %></h3>
-                                <p>Descripción: <%= computadora.description %></p>
-                                <p>Costo: $<%= computadora.cost %></p>
-                                <p>Marca: <%= computadora.marca %></p>
-                                <p>Stock: <%= computadora.stock %></p>
-                                <p>Precio: $<%= computadora.precio %></p>
-                                <a href="/ownbase/coleccion/getOne/<%= computadora._id.toString().trim() %>" class="ui-btn ui-btn-inline">Editar</a>
-                                
-                                <!-- Formulario de eliminación -->
-                                <form action="/ownbase/coleccion/deleteOne/<%= computadora._id.toString().trim() %>" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
-                                </form>
+                                <p>Utilidad: $<%= computadora.precio - computadora.cost %></p>
                             </li>
                         <% }); %>
                     <% } else { %>
                         <p>No hay computadoras registradas.</p>
                     <% } %>
                 </ul>
-            </div><!-- /collapsible -->
+            </div>
 
             <!-- Collapsible Por Stock -->
             <div data-role="collapsible" data-inset="false">
                 <h3>Por Stock</h3>
                 <ul data-role="listview">
                     <% if (coleccion && coleccion.length > 0) { %>
+                        <% coleccion.sort((a, b) => a.stock - b.stock); %>
                         <% coleccion.forEach(function(computadora) { %>
                             <li>
                                 <h3>Nombre: <%= computadora.name %></h3>
-                                <p>Descripción: <%= computadora.description %></p>
-                                <p>Costo: $<%= computadora.cost %></p>
-                                <p>Marca: <%= computadora.marca %></p>
                                 <p>Stock: <%= computadora.stock %></p>
-                                <p>Precio: $<%= computadora.precio %></p>
-                                <a href="/ownbase/coleccion/getOne/<%= computadora._id.toString().trim() %>" class="ui-btn ui-btn-inline">Editar</a>
-                                
-                                <!-- Formulario de eliminación -->
-                                <form action="/ownbase/coleccion/deleteOne/<%= computadora._id.toString().trim() %>" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
-                                </form>
                             </li>
                         <% }); %>
                     <% } else { %>
                         <p>No hay computadoras registradas.</p>
                     <% } %>
                 </ul>
-            </div><!-- /collapsible -->
-        </div><!-- /demo-borders -->
+            </div>
+        </div>
 
         <!-- Pie de Página -->
         <div data-role="footer">
             <h4>Derechos Reservados por Uri On The Beatz A.K.A BadBeat</h4>
-        </div><!-- /footer -->
+        </div>
 
-    </div><!-- /page -->
+    </div>
 </body>
 </html>
